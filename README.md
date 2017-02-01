@@ -23,13 +23,13 @@ Docker php7-fpm ready with default modules to run a Symfony3 app.
 ```
 docker run -it \
     -v ~/my_php.ini:/usr/local/etc/php/conf.d/custom.ini \
-    -v /project_files/:/var/www/symfony" \
+    -v ~/project_files/:/var/www/symfony" \
     davidpv/docker-php7-fpm
 ```
 
 Inside de container:
 
-1. Install de symfony installer. `symfony new symfony`
+1. `symfony new symfony`
 2. `cd symfony`
 3. `composer.phar install`
 
