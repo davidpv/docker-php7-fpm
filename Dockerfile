@@ -6,7 +6,6 @@ ENV TERM xterm
 
 #Workdir
 WORKDIR "/var/www"
-RUN  mkdir /var/www/symfony
 
 #APT-GET
 RUN apt-get update && apt-get install -y \
