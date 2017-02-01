@@ -57,3 +57,5 @@ RUN usermod -u 1000 www-data
 
 # Cleanup
 RUN apt-get autoremove -y && apt-get clean all
+
+EXPOSE 8000
