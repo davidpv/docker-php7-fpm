@@ -24,7 +24,6 @@ Docker php7-fpm ready with default modules to run a Symfony3 app.
 docker run -it \
     -v ./my_php.ini:/usr/local/etc/php/conf.d/custom.ini \
     -v ./project_files/:/var/www/symfony" \
-    --link mysql \
     davidpv/docker-php7-fpm
 ```
 
