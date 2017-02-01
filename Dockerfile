@@ -5,10 +5,12 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 
 #Workdir
-WORKDIR "/var/www/symfony"
+WORKDIR "/var/www"
+RUN  mkdir /var/www/symfony
 
 #APT-GET
 RUN apt-get update && apt-get install -y \
+    curl \
     wget \
     build-essential \
     libssl-dev \
@@ -35,6 +37,11 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         mcrypt \
         json \
         exif
+
+#install de symfony installer
+RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+RUN chmod a+x /usr/local/bin/symfony
+
 #Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin \
