@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libfreetype6-dev \
     libgd-dev \
-    bcmath \
     libmcrypt-dev
 
 #PHP Extensions
@@ -35,6 +34,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         zip \
         gd \
         mcrypt \
+        bcmath \
         json \
         exif
 
