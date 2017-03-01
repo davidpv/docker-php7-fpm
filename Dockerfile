@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libfreetype6-dev \
     libgd-dev \
-    libmcrypt-dev
+    libmcrypt-dev \
+    rubygems
 
 #PHP Extensions
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
@@ -46,6 +47,9 @@ RUN chmod a+x /usr/local/bin/symfony
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin \
     && php -r "unlink('composer-setup.php');"
+
+#Install capifony
+RUN gem install capifony
 
 # PHPUnit
 RUN wget https://phar.phpunit.de/phpunit.phar \
