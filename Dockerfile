@@ -57,7 +57,6 @@ RUN wget https://phar.phpunit.de/phpunit.phar \
     && mv phpunit.phar /usr/local/bin/phpunit \
     && chmod +x /usr/local/bin/phpunit
 
-
 # Symfony's fix permissions
 RUN usermod -u 1000 www-data
 
