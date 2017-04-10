@@ -60,7 +60,16 @@ RUN wget https://phar.phpunit.de/phpunit.phar \
 # Symfony's fix permissions
 RUN usermod -u 1000 www-data
 
+#Locale
+#COPY locale.gen /etc/
+#RUN apt-get update
+#RUN echo "LC_ALL=es_ES.UTF-8" >> /etc/default/locale
+#RUN export LC_ALL="es_ES.UTF-8"
+#RUN dpkg-reconfigure locales
+#RUN apt-get install locales
+
 # Cleanup
 RUN apt-get autoremove -y && apt-get clean all
 
+#expose
 EXPOSE 9000
