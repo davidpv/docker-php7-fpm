@@ -37,6 +37,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         mcrypt \
         bcmath \
         json \
+        memcache \
         bcmath \
         exif
 

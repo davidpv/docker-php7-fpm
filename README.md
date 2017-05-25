@@ -1,5 +1,5 @@
 # docker-php7-fpm
-Docker php7-fpm ready with default modules to run a Symfony3 app.
+PHP 7.1 ready with default modules to run a Symfony3 app.
 
 ##modules installed
 * PHPUnit
@@ -16,6 +16,7 @@ Docker php7-fpm ready with default modules to run a Symfony3 app.
 * gd
 * mcrypt
 * json
+* memcache
 * exif
 
 ##Usage example
