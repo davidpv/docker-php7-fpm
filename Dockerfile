@@ -56,9 +56,14 @@ RUN cd /tmp/ \
     && cd pecl-memcache && phpize \
     && ./configure --disable-memcache-sasl \
     && make && make install
-    
+
+#MONGO
+RUN pecl install mongodb
+
+#UPDATE php.ini
 RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
 RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
+RUN echo 'extension=mongodb.so' >> /usr/local/etc/php/conf.d/custom.ini
 
 
 #install de symfony installer
