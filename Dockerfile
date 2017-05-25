@@ -11,6 +11,7 @@ WORKDIR "/var/www"
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
+    unzip
     build-essential \
     libssl-dev \
     git \
@@ -39,6 +40,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         json \
         bcmath \
         exif
+
 
 #install de symfony installer
 RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
