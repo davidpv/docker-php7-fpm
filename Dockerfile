@@ -58,7 +58,7 @@ RUN cd /tmp/ \
     && make && make install
 
 #MONGO
-RUN pecl install mongodb
+RUN pecl install -f mongodb
 
 #UPDATE php.ini
 RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
