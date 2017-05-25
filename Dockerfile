@@ -42,6 +42,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         sockets \
         exif
 
+#SOCKETS
+RUN docker-php-ext-install sockets
+
 #MEMCACHE
 RUN cd /tmp/ \
     && wget https://github.com/php-memcached-dev/php-memcached/archive/php7.zip -O php-memcached-php7.zip \
@@ -57,15 +60,12 @@ RUN cd /tmp/ \
     && cd pecl-memcache && phpize \
     && ./configure --disable-memcache-sasl \
     && make && make install
+RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
+RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
 
 #MONGO
 RUN pecl install -f mongodb
-
-#UPDATE php.ini
-RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
-RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
 RUN echo 'extension=mongodb.so' >> /usr/local/etc/php/conf.d/custom.ini
-
 
 #install de symfony installer
 RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony

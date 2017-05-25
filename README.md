@@ -4,7 +4,6 @@ PHP 7.1 ready with default modules to run a Symfony3 app.
 ##modules installed
 * PHPUnit
 * Composer
-* docker-php-ext-install
 * opcache
 * intl
 * pcntl
@@ -17,6 +16,8 @@ PHP 7.1 ready with default modules to run a Symfony3 app.
 * mcrypt
 * json
 * memcached
+* mongodb
+* sockets
 * exif
 
 ##Usage example
