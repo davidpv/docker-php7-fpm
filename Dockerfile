@@ -39,6 +39,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         bcmath \
         json \
         bcmath \
+        sockets \
         exif
 
 #MEMCACHE
