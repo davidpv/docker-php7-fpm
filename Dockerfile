@@ -41,6 +41,25 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
         bcmath \
         exif
 
+#MEMCACHE
+RUN cd /tmp/ \
+    && wget https://github.com/php-memcached-dev/php-memcached/archive/php7.zip -O php-memcached-php7.zip \
+    && unzip -o php-memcached-php7.zip \
+    && cd php-memcached-php7 \
+    && phpize \
+    && ./configure --disable-memcached-sasl \
+    && make && make install
+
+RUN cd /tmp/ \
+    && rm -rf pecl-memcache \
+    && git clone https://github.com/websupport-sk/pecl-memcache.git \
+    && cd pecl-memcache && phpize \
+    && ./configure --disable-memcache-sasl \
+    && make && make install
+    
+RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
+RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
+
 
 #install de symfony installer
 RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
