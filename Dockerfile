@@ -84,6 +84,10 @@ RUN wget https://phar.phpunit.de/phpunit.phar \
     && mv phpunit.phar /usr/local/bin/phpunit \
     && chmod +x /usr/local/bin/phpunit
 
+#install node
+RUN echo 'export PATH=$PATH:/usr/local/bin' >> $HOME/.bashrc
+RUN apt-get update && apt-get install -y curl gnupg2 && curl -sL https://deb.nodesource.com/setup_6.x | bash - && apt-get install -y nodejs
+
 # Symfony's fix permissions
 RUN usermod -u 1000 www-data
 
