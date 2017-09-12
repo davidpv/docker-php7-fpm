@@ -11,7 +11,7 @@ WORKDIR "/var/www"
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
-    unzip
+    unzip \
     build-essential \
     libssl-dev \
     git \
