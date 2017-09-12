@@ -15,7 +15,8 @@ PHP 7.1 ready with default modules to run a Symfony3 app.
 * gd
 * mcrypt
 * json
-* memcached
+* node & npm
+* memcache
 * mongodb
 * sockets
 * exif

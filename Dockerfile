@@ -4,9 +4,6 @@ MAINTAINER David Perez <davidpv@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 
-#Workdir
-WORKDIR "/var/www"
-
 #APT-GET
 RUN apt-get update && apt-get install -y \
     curl \
@@ -15,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libssl-dev \
     git \
+    sudo \
     jpegoptim \
     libicu-dev \
     zlib1g-dev \
@@ -22,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     libgd-dev \
     libmcrypt-dev \
     rubygems
+
 
 #PHP Extensions
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr \
@@ -54,14 +53,14 @@ RUN docker-php-ext-install sockets
 #    && ./configure --disable-memcached-sasl \
 #    && make && make install
 
-#RUN cd /tmp/ \
-#    && rm -rf pecl-memcache \
-#    && git clone https://github.com/websupport-sk/pecl-memcache.git \
-#    && cd pecl-memcache && phpize \
-#    && ./configure --disable-memcache-sasl \
-#    && make && make install
-#RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
-#RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
+RUN cd /tmp/ \
+    && rm -rf pecl-memcache \
+    && git clone https://github.com/websupport-sk/pecl-memcache.git \
+    && cd pecl-memcache && phpize \
+    && ./configure --disable-memcache-sasl \
+    && echo "docker" | sudo -S make && echo "docker" | sudo -S make install
+RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING' >> /usr/local/etc/php/conf.d/custom.ini
+RUN echo 'extension=memcache.so' >> /usr/local/etc/php/conf.d/custom.ini
 
 #MONGO
 RUN pecl install -f mongodb
@@ -91,16 +90,13 @@ RUN apt-get update && apt-get install -y curl gnupg2 && curl -sL https://deb.nod
 # Symfony's fix permissions
 RUN usermod -u 1000 www-data
 
-#Locale
-#COPY locale.gen /etc/
-#RUN apt-get update
-#RUN echo "LC_ALL=es_ES.UTF-8" >> /etc/default/locale
-#RUN export LC_ALL="es_ES.UTF-8"
-#RUN dpkg-reconfigure locales
-#RUN apt-get install locales
-
 # Cleanup
 RUN apt-get autoremove -y && apt-get clean all
+
+#USERADD
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+WORKDIR /home/docker/www/project
+USER docker
 
 #expose
 EXPOSE 9000
