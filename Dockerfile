@@ -70,10 +70,11 @@ RUN echo 'extension=mongodb.so' >> /usr/local/etc/php/conf.d/custom.ini
 RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
 RUN chmod a+x /usr/local/bin/symfony
 
-#Composer
+#Composer && hirak/prestissimo
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin \
-    && php -r "unlink('composer-setup.php');"
+    && php -r "unlink('composer-setup.php');" \
+    && /usr/local/bin/composer.phar global require hirak/prestissimo
 
 #Install capifony
 RUN gem install capifony
